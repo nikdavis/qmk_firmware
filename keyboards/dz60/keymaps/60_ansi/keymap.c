@@ -5,7 +5,8 @@
 enum custom_keycodes {
     GITPL = SAFE_RANGE,
     GITPS,
-	MAGIC
+	MAGIC,
+	LOCK
 };
 
 // Note: I use software keyboard transation, so these commands are
@@ -24,6 +25,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
 			case MAGIC:
 				SEND_STRING("gkq; maugi!");
+				return false;
+			case LOCK:
+				SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT)SS_DOWN(X_POWER)SS_UP(X_LCTRL)SS_UP(X_LSHIFT)SS_UP(X_POWER));
 				return false;
         }
     }
@@ -48,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		______, ______,             ______,                  ______,                              ______,  ______,           ______,  ______),
 	
 	LAYOUT_60_ansi(
-		______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,           KC_POWER,
+		______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,           LOCK,
 		______,           ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,
 		______,           ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,
-		______,           ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,           ______,
-		______,  ______,           KC_LGUI,                  ______,                              ______,  ______,           ______,  ______)
+		KC_LSFT,          ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,           ______,
+		KC_LCTL, ______,           ______,                   ______,                              ______,  ______,           ______,  ______)
 };
